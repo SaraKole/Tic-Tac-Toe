@@ -10,7 +10,7 @@ function startGame(){
   step=1;
   gameComplete=false;// to check if game has ended or not
   document.getElementById('button').innerHTML='<h3>Reset!</h3>';
-  document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png"> turn</h3>`;
+  document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="Red Cross"> turn</h3>`;
   //pos helps to trace which box is clicked.If cross is the img display on box the pos will be alligned with value 1 or else pos=0
   pos=[0,1,2,3,4,5,6,7,8];
   for(let i=0;i<boxes.length;i++){
@@ -25,8 +25,8 @@ function handler(event){
   
   if(step%2!==0){
     
-    document.getElementById(event.target.id).innerHTML='<img class="cross" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png">';
-    document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img"  src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png"> turn</h3>`;//display which player turn it is.
+    document.getElementById(event.target.id).innerHTML='<img class="cross" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="Red Cross">';
+    document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img"  src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png" alt="Red Circle"> turn</h3>`;//display which player turn it is.
     step++;
     pos[event.target.id]='x';
     winner('cross');
@@ -34,8 +34,8 @@ function handler(event){
   }
   else{
     
-  document.getElementById(event.target.id).innerHTML='<img class="nought" src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png">';
-  document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png"> turn</h3>`;//display which player turn it is.
+  document.getElementById(event.target.id).innerHTML='<img class="nought" src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png" alt="Red circle">';
+  document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="Red cross"> turn</h3>`;//display which player turn it is.
   step++;
   pos[event.target.id]='o';
   winner('no');
@@ -50,7 +50,7 @@ function winner(val){
     
     if(val==='cross'){
       //displays message on the button,player1 wins
-      document.getElementById('turn').innerHTML='<h3>&nbsp&nbsp<img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png"> Wins! Play Again</h3>';
+      document.getElementById('turn').innerHTML='<h3>&nbsp&nbsp<img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="red cross"> Wins! Play Again</h3>';
       X++;
       document.getElementById('scoreX').innerHTML=`<h4>${X}</h4>`;
 
@@ -58,7 +58,7 @@ function winner(val){
     }
     else{
        //displays message on the button,player2 wins
-      document.getElementById('turn').innerHTML='<h3>&nbsp&nbsp<img class="button-img"  src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png"> Wins! Play Again</h3>';
+      document.getElementById('turn').innerHTML='<h3>&nbsp&nbsp<img class="button-img"  src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png" alt="red circle"> Wins! Play Again</h3>';
       O++;
       document.getElementById('scoreO').innerHTML=`<h4>${O}</h4>`;
       
