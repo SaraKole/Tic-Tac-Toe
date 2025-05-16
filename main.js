@@ -10,7 +10,7 @@ function startGame(){
   step=1;
   gameComplete=false;// to check if game has ended or not
   document.getElementById('button').innerHTML='<h3>Reset!</h3>';
-  document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="Red Cross"> turn</h3>`;
+  document.querySelector('#turn .text').innerHTML=`It's Player <img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="Red Cross"> turn`;
   //pos helps to trace which box is clicked.If cross is the img display on box the pos will be alligned with value 1 or else pos=0
   pos=[0,1,2,3,4,5,6,7,8];
   for(let i=0;i<boxes.length;i++){
@@ -26,7 +26,7 @@ function handler(event){
   if(step%2!==0){
     
     document.getElementById(event.target.id).innerHTML='<img class="cross" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="Red Cross">';
-    document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img"  src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png" alt="Red Circle"> turn</h3>`;//display which player turn it is.
+    document.querySelector('#turn .text').innerHTML=`It's Player <img class="button-img"  src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png" alt="Red Circle"> turn`;//display which player turn it is.
     step++;
     pos[event.target.id]='x';
     winner('cross');
@@ -35,7 +35,7 @@ function handler(event){
   else{
     
   document.getElementById(event.target.id).innerHTML='<img class="nought" src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png" alt="Red circle">';
-  document.getElementById('turn').innerHTML=`<h3>It's Player <img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="Red cross"> turn</h3>`;//display which player turn it is.
+  document.querySelector('#turn .text').innerHTML=`It's Player <img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="Red cross"> turn`;//display which player turn it is.
   step++;
   pos[event.target.id]='o';
   winner('no');
@@ -50,7 +50,7 @@ function winner(val){
     
     if(val==='cross'){
       //displays message on the button,player1 wins
-      document.getElementById('turn').innerHTML='<h3>&nbsp&nbsp<img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="red cross"> Wins! Play Again</h3>';
+      document.querySelector('#turn .text').innerHTML='&nbsp&nbsp<img class="button-img" src="./1-16405_american-red-cross-computer-icons-christian-cross-symbol.png" alt="red cross"> Wins! Play Again';
       X++;
       document.getElementById('scoreX').innerHTML=`<h4>${X}</h4>`;
 
@@ -58,7 +58,7 @@ function winner(val){
     }
     else{
        //displays message on the button,player2 wins
-      document.getElementById('turn').innerHTML='<h3>&nbsp&nbsp<img class="button-img"  src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png" alt="red circle"> Wins! Play Again</h3>';
+      document.querySelector('#turn .text').innerHTML='&nbsp&nbsp<img class="button-img"  src="./421-4211837_fond-colors-circle-poster-u37711-transparent-red-strikethrough.png" alt="red circle"> Wins! Play Again';
       O++;
       document.getElementById('scoreO').innerHTML=`<h4>${O}</h4>`;
       
@@ -73,7 +73,7 @@ function winner(val){
   }
    //displays message on the button,that the match is draw
   else if(step===10){
-    document.getElementById('turn').innerHTML="<h3>It's a DRAW! Play Again</h3>";
+    document.querySelector('#turn .text').innerHTML="It's a DRAW! Play Again";
     gameComplete=true;
     
   }
@@ -83,6 +83,7 @@ startGame();
 
 //continues the Game
 document.getElementById('turn').onclick=()=>{
+  //console.log("next game");
   if(gameComplete){
   startGame();
   }
@@ -98,3 +99,53 @@ function reset(){
   document.getElementById('scoreX').innerHTML=`<h4>${X}</h4>`;
   startGame();
 }
+
+const button = document.querySelectorAll('.nav'); //get all hoverable buttons
+let index = 0; //to tell which buttion is being hovered over
+
+function changeFocus(){ //change the hover effect
+
+  button.forEach(function(button, i){
+
+    if (i === index) {
+      button.tabIndex = 0;
+      button.focus();
+    } else {
+      button.tabIndex = -1;
+    }
+
+  })
+
+};
+
+document.addEventListener("keydown", function(event){
+
+  if(event.key === 'ArrowRight'){
+    index = (index + 1);
+  }else if(event.key === 'ArrowLeft'){
+    index = (index - 1);
+  }else if(event.key === 'ArrowUp'){
+    index = (index - 3);
+  }else if(event.key === 'ArrowDown'){
+    index = (index + 3);
+  }else if(event.key === ' '){
+
+    if(index === 10){
+      document.getElementById('turn').click();
+    } else {
+      button[index].click();
+    }
+    
+    //console.log(index);
+  };
+
+  if(index <= 0){
+    index = 0;
+  }else if(index >= 10){
+    index = 10;
+    document.getElementById('turn').focus();
+  };
+
+  changeFocus();
+
+});
